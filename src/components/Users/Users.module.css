@@ -1,0 +1,11 @@
+.userPhoto {
+    width: 240px;
+    height: 240px;
+}
+.window {
+    display: flex;
+}
+
+.list {
+    flex-direction: row;
+}

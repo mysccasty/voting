@@ -1,13 +1,10 @@
 import React from 'react';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import store from "./redux/redux-store";
-import ReactDOM from "react-dom";
-import {MainApp} from "./App";
+import * as ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
+import App from "./App";
 
-window.store = store;
 ReactDOM.render(
-    <MainApp />,
+    <App />,
     document.getElementById('root')
 );
 

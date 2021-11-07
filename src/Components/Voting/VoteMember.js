@@ -1,17 +1,30 @@
+import styles from "./VotingMember.module.css"
+
 const VoteMember = (props) => {
-    return <div>
+    const quantityOfVote = 1;
+    const onVoteMinus = () => {
+        props.voteMinus(props.id, quantityOfVote);
+    };
+    const onVotePlus = () => {
+        props.votePlus(props.id, quantityOfVote);
+    };
+    return <div className={styles.block}>
         <span>
-            <h1>{props.name}</h1>
+            <p>Участник № {props.id+1}</p>
+            <h2>{props.name}</h2>
         </span>
-        <img alt={"Участник № "+props.id} src={props.photo}/>
+        <img className={styles.image} alt={"Участник № "+props.id} src={props.photo}/>
         <span>
-            <h3>{props.info}</h3>
+            <p>{props.info}</p>
         </span>
-        <span>
+
+        <div>
+            <button onClick={onVoteMinus}>-1 голос</button>
             <p>
-                {props.quantity}
+                {props.votes}
             </p>
-        </span>
+            <button onClick={onVotePlus}>+1 голос</button>
+        </div>
     </div>
 
 }

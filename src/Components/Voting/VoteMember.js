@@ -1,14 +1,29 @@
 import styles from "./VotingMember.module.css"
+import {useEffect, useState} from "react";
 
 const VoteMember = (props) => {
-    const quantityOfVote = 1;
+    let [editMode, setEditMode] = useState(false);
+    let [votes, setVotes] = useState(props.votes)
+    useEffect(() => {
+        setVotes(props.votes);
+    }, [props.votes]);
+    const activateEditMode = () => {
+        setEditMode(true);
+    };
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        props.updateVotes(props.id, votes);
+    };
+    const onVotesChange = (e) => {
+        setVotes(e.target.value);
+    }
     const onVoteMinus = () => {
-        props.voteMinus(props.id, quantityOfVote);
+        props.updateVotes(props.id, votes-props.quantityOfVote);
     };
     const onVotePlus = () => {
-        props.votePlus(props.id, quantityOfVote);
+        props.updateVotes(props.id, votes+props.quantityOfVote);
     };
-    return <div className={props.id ? styles.block1 : styles.block2}>
+    return <div className={props.id % 2 !== 0 ? styles.block1 : styles.block2}>
         <span>
             <p>Участник № {props.id+1}</p>
             <h2>{props.name}</h2>
@@ -19,9 +34,11 @@ const VoteMember = (props) => {
         </span>
         <div className={styles.voting}>
             <button onClick={onVoteMinus}>-1 голос</button>
-            <p>
-                {props.votes}
-            </p>
+            {!editMode && <p onDoubleClick={activateEditMode} >
+                {votes}
+            </p>}
+            {editMode && <input type={"number"} autoFocus={true} value={votes} onBlur={deactivateEditMode} onChange={onVotesChange}/>
+            }
             <button onClick={onVotePlus}>+1 голос</button>
         </div>
     </div>
